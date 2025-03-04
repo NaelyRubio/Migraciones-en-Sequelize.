@@ -1,13 +1,14 @@
 const { where } = require('sequelize');
-const { Producto } = require('../moodels');
+const { Producto } = require('../../models'); 
+
 
 class productoDAO {
     constructor() { }
 
     async crearProducto(nombre, precio, cantidad) {
         try {
-            const Producto = await Producto.create({ nombre, precio, cantidad });
-            return Producto;
+            const producto = await Producto.create({ nombre, precio, cantidad });
+            return producto;
         } catch (error) {
             throw error;
         }
@@ -23,10 +24,10 @@ class productoDAO {
 
     }
 
-    async obtenerProductoPorId() {
+    async obtenerProductoPorId(id) {
         try {
-            const productos = await Producto.findByPk(id);
-            return productos;
+            const producto = await Producto.findByPk(id);
+            return producto;
         } catch (error) {
             throw error;
         }
@@ -43,9 +44,9 @@ class productoDAO {
     }
 
 
-    async elliminarProductoPorId(id) {
+    async eliminarProductoPorId(id) {
         try {
-            const productos = await Producto.findByPk(id);
+            const producto = await Producto.findByPk(id);
             if(!producto){
                 throw new Error ('No se encontro el producto a eliminar');
             }
@@ -55,8 +56,6 @@ class productoDAO {
             throw error;
         }
     }
-
-
 }
 
-module.exports = new ProductoDAO();
+module.exports = new productoDAO();
